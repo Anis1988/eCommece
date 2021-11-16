@@ -218,8 +218,8 @@ _TeamCity*
 _NCrunch_*
 .*crunch*.local.xml
 nCrunchTemp_*
-datingapp.db-shm
-datingapp.db-wal
+ecommerce.db-shm
+ecommerce.db-wal
 
 # MightyMoose
 *.mm.*
@@ -412,7 +412,7 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 
-API/datingapp.db
-API/datingapp.db
+API/ecommerce.db
+API/ecommerce.db
 API/obj/Debug/net5.0/API.csproj.AssemblyReference.cache
 API/obj/Debug/net5.0/API.GeneratedMSBuildEditorConfig.editorconfig
