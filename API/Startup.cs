@@ -1,4 +1,7 @@
 using API.Data;
+using API.Helper;
+using API.Interfaces;
+using API.Repo;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +26,8 @@ namespace API
         {
 
             services.AddControllers();
+            services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+            services.AddScoped<IProductRepo,ProductRepo>();
             services.AddDbContext<StoreContext>(opt => {
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
