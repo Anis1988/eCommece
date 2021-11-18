@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,6 +6,7 @@ using System.Threading.Tasks;
 using API.Data;
 using API.Dtos;
 using API.Entities;
+using API.Helper;
 using API.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -23,19 +25,34 @@ namespace API.Repo
 
         }
 
-        public async Task<IEnumerable<ProductDto>> GetProductsAsync(string info)
+        public async Task<PagedList<ProductDto>> GetProductsAsync(ProductParams productParams)
         {
-            var products  =  _context.Products/*.ProjectTo<ProductDto>(_mapper.ConfigurationProvider)*/.AsQueryable();
-            products = info switch
+            var products  =  _context.Products.AsQueryable();
+            if (productParams.ByBrand.HasValue )
+            {
+                products = products.Where(x => x.ProductBrandId == productParams.ByBrand).AsQueryable();
+            };
+            if (productParams.ByType.HasValue)
+            {
+                products = products.Where(x => x.ProductTypeId == productParams.ByType).AsQueryable();
+            };
+            if (!string.IsNullOrEmpty(productParams.Search))
+            {
+                products = products.Where(x =>x.Name.ToLower().Contains(productParams.Search.ToLower())).AsQueryable();
+            }
+
+            products = productParams.OrderBy switch
             {
                 "byName" => products.OrderBy(n =>n.Name).Include(p =>p.ProductBrand).Include(p =>p.ProductType),
-                "byPriceAsc" => products.OrderBy(p =>p.Price).Include(p => p.ProductBrand).Include(p => p.ProductType),
-                "byPriceDesc" => products.OrderByDescending(p =>p.Price).Include(p => p.ProductBrand).Include(p => p.ProductType),
+                "byPriceAsc" =>  products.OrderBy(p => p.Price).Include(p => p.ProductBrand).Include(p => p.ProductType),
+                "byPriceDesc" => products.OrderByDescending(p => p.Price).Include(p => p.ProductBrand).Include(p => p.ProductType),
                 _ => products.Include(p => p.ProductBrand).Include(p => p.ProductType)
 
             };
 
-            return  _mapper.Map<IEnumerable<ProductDto>>(products);
+
+            return  await PagedList<ProductDto>.CreateAsync(products.ProjectTo<ProductDto>(_mapper.ConfigurationProvider).AsNoTracking(),
+                productParams.PageNumber,productParams.PageSize);
         }
         public async Task<ProductDto> GetSingleProductAsync(int id)
         {
@@ -53,6 +70,5 @@ namespace API.Repo
         {
             return await _context.ProductTypes.ToListAsync();
         }
-
     }
 }

@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Dtos;
 using API.Entities;
+using API.Errors;
+using API.Extentions;
+using API.Helper;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -21,9 +24,11 @@ namespace API.Controllers
             _productRepo = productRepo;
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProductss([FromQuery]string info)
+        public async Task <ActionResult<IEnumerable<ProductDto>>> GetProductss([FromQuery]ProductParams productParams)
         {
-            return  Ok (await _productRepo.GetProductsAsync(info));
+            var products = await _productRepo.GetProductsAsync(productParams);
+            Response.AddPaginationHeader(products.CurrentPage,products.PageSize,products.TotalCount,products.TotalPages);
+            return  Ok (products);
 
         }
         [HttpGet("{id}")]

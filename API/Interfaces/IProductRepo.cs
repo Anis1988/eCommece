@@ -4,12 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Dtos;
 using API.Entities;
+using API.Helper;
 
 namespace API.Interfaces
 {
     public interface IProductRepo
     {
-        Task<IEnumerable<ProductDto>> GetProductsAsync(string info);
+        Task<PagedList<ProductDto>> GetProductsAsync(ProductParams productParams);
         Task<ProductDto> GetSingleProductAsync(int id);
         Task<IEnumerable<ProductType>> GetProductsTypesAsync();
         Task<IEnumerable<ProductBrand>> GetProductsBrandAsync();

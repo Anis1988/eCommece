@@ -10,7 +10,8 @@ namespace API.Helper
         {
             CreateMap<Product,ProductDto>()
                 .ForMember(des => des.ProductBrand,opt => opt.MapFrom( src => src.ProductBrand.Name))
-                .ForMember(des => des.ProductType,opt => opt.MapFrom( src => src.ProductType.Name));
+                .ForMember(des => des.ProductType,opt => opt.MapFrom( src => src.ProductType.Name))
+                .ForMember(des => des.PictureUrl,opt => opt.MapFrom<ProductUrlResolver>());
         }
     }
 }
