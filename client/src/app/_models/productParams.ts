@@ -6,5 +6,5 @@ export class ProductParams {
   byType  :number;
   search : string;
   pageNumber = 1;
-  pageSize = 10;
+  pageSize = 9;
 }

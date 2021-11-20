@@ -6,11 +6,16 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductListComponent } from './products/product-list/product-list.component';
+import { ProductItemDetailsComponent } from './products/product-item-details/product-item-details.component';
+import { NavbarComponent } from './navbar/navbar.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductListComponent
+    ProductListComponent,
+    ProductItemDetailsComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,

@@ -416,3 +416,5 @@ API/ecommerce.db
 API/ecommerce.db
 API/obj/Debug/net5.0/API.csproj.AssemblyReference.cache
 API/obj/Debug/net5.0/API.GeneratedMSBuildEditorConfig.editorconfig
+client/src/assets/*
+API/wwwroot/*
