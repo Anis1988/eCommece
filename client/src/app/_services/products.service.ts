@@ -57,10 +57,10 @@ export class ProductsService {
     //   return of(this.brands);
     // }
     return this.http
-      .get<IProduct[]>(this.baseUrl + 'product/brands')
+      .get<IBrand[]>(this.baseUrl + 'product/brands')
       .pipe(
         map((response) => {
-          this.products = response;
+          this.types = response;
           return response;
         })
       );
@@ -70,7 +70,7 @@ export class ProductsService {
     //   return of(this.types);
     // }
     return this.http
-      .get<IProduct[]>(this.baseUrl + 'product/types')
+      .get<IType[]>(this.baseUrl + 'product/types')
       .pipe(
         map((response) => {
           this.types = response;
