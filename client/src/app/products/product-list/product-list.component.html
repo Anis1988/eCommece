@@ -39,12 +39,22 @@
     </section>
     <section class="col-9">
 
+        <div class="form-inline mt-2">
+                    <input (keyup.enter)="onSearch()" class="form-control mr-2" #search style="width: 300px" placeholder="Search" type="text">
+                    <button (click)="onSearch()" class="btn btn-outline-primary my-2">Search</button>
+                    <button (click)="onReset()" class="btn btn-outline-success ml-2 my-2">Reset</button>
+                </div>
+
+      
+      <pagination-controls  class="my-pagination" (pageChange)="onPageChanged($event)"></pagination-controls>
         <div class="row">
-          <div class="col-4 mb-4" *ngFor="let item of products">
+          <div class="col-4 mb-4" *ngFor="let item of products
+           | paginate: {itemsPerPage: params.pageSize, currentPage: params.pageNumber, totalItems: 18} ">
             <app-product-item-details [product]="item"></app-product-item-details>
           </div>
+          <pagination-controls  class="my-pagination"  (pageChange)="onPageChanged($event)"></pagination-controls>
         </div>
-      
+
     </section>
   </div>
 </div>

@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { ProductItemDetailsComponent } from './products/product-item-details/product-item-details.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -21,9 +22,10 @@ import { NavbarComponent } from './navbar/navbar.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

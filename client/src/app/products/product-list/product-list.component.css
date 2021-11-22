@@ -1,0 +1,6 @@
+.my-pagination /deep/ .ngx-pagination .current {
+  background: blue;
+  /* display: flex; */
+  justify-content: center;
+
+}

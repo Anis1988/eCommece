@@ -3,7 +3,7 @@ import { IBrand } from './../../_models/IBrand';
 import { IProduct } from './../../_models/IProduct';
 import { ProductParams } from './../../_models/productParams';
 import { ProductsService } from './../../_services/products.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-product-list',
@@ -11,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit {
+  @ViewChild('search', { static: true }) search: ElementRef;
   params = new ProductParams();
   products: IProduct[];
   brands: IBrand[];
@@ -68,6 +69,20 @@ export class ProductListComponent implements OnInit {
   }
   onType(type: number) {
     this.params.byType = type;
+    this.loadProducts();
+  }
+  onPageChanged(event: any) {
+    if (this.params.pageNumber !== event) {
+      this.params.pageNumber = event;
+      this.loadProducts();
+    }
+  }
+  onReset() {
+    this.params = new ProductParams();
+    this.loadProducts();
+  }
+  onSearch() {
+    this.params.search = this.search.nativeElement.value;
     this.loadProducts();
   }
 }
